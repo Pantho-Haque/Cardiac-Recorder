@@ -11,13 +11,13 @@
         android:id="@+id/homeToolbar"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:background="@color/teal_700"
+        android:background="@color/toolbar_bg"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Todo List" />
+        app:title="Cardiac Recorder" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
