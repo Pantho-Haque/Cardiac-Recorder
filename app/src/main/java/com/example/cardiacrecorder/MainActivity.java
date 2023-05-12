@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,14 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        String user ="pantho";
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (user != null) {
                     startActivity(new Intent(MainActivity.this, HomeActivity.class));
                 } else {
+                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
 //                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
 
