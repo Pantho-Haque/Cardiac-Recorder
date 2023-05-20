@@ -6,13 +6,87 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+    <EditText
+        android:id="@+id/verificationcode"
+        android:layout_width="329dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
+        android:height="50dp"
+        android:autoText="true"
+        android:autofillHints=""
+        android:drawableLeft="@drawable/baseline_code"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="Verification Code"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
+
+    <Button
+        android:id="@+id/verifyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:enabled="false"
+        android:text="Verify"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verificationcode" />
+
+    <EditText
+        android:id="@+id/loginPhone"
+        android:layout_width="329dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="316dp"
+        android:height="50dp"
+        android:autoText="true"
+        android:autofillHints=""
+        android:drawableLeft="@drawable/baseline_local_phone"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="276dp"
+        android:layout_height="238dp"
+        android:contentDescription="Logo"
+        app:layout_constraintBottom_toTopOf="@+id/loginPhone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/splashimage" />
+
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginPhone" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:height="50dp"
+        android:gravity="center_vertical"
+        android:text="+880"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toStartOf="@+id/loginPhone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/loginPhone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

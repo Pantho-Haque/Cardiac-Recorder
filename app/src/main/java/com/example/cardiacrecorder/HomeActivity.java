@@ -31,6 +31,8 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
+
+    FirebaseAuth mAuth=FirebaseAuth.getInstance();
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
@@ -100,6 +102,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.logout) {
+            mAuth.signOut();
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             finish();
             return true;
