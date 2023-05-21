@@ -12,12 +12,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,7 +29,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -35,10 +39,12 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
     private Toolbar toolbar;
     private RecyclerView recyclerView;
+    private DatabaseReference reference;
+    private FirebaseAuth myAuth;
     private FloatingActionButton floatingActionButton;
-
     private ProgressDialog loader;
 
+    String onlineUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +68,71 @@ public class HomeActivity extends AppCompatActivity {
             final AlertDialog dialog = new AlertDialog.Builder(HomeActivity.this).setView(myView).create();
             dialog.setCancelable(false);
 
+            EditText systolicPressure = myView.findViewById(R.id.systolicPressure),
+                    diastolicPressure = myView.findViewById(R.id.diastolicPressure),
+                    heartRate=myView.findViewById(R.id.heartRate);
+
+            TextView date=myView.findViewById(R.id.dateAndTime);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a dd/MM/yyyy");
+            Date now = new Date();
+            String theDate=sdf.format(now);
+            date.setText(theDate);
+
             Button save=myView.findViewById(R.id.saveBtn),
                     cancel=myView.findViewById(R.id.cancelBtn);
 
             save.setOnClickListener((v)->{
-                dialog.dismiss();
+                String systolicValue= systolicPressure.getText().toString().trim();
+                String diastolicValue= diastolicPressure.getText().toString().trim();
+                String heartRateValue= heartRate.getText().toString().trim();
+
+                // systolic pressure validation
+                if(TextUtils.isEmpty(systolicValue)){
+                    systolicPressure.setError("Systolic Pressure is Required");
+                }else if(Integer.parseInt(systolicValue) <0 || Integer.parseInt(systolicValue)>200 ){
+                    systolicPressure.setError("Invalid Systolic Pressure");
+                }
+
+                // diastolic pressure validation
+                else if(TextUtils.isEmpty(diastolicValue)){
+                    diastolicPressure.setError("Diastolic Pressure is Required");
+                }else if(Integer.parseInt(diastolicValue)<0 || Integer.parseInt(diastolicValue)>200 ){
+                    diastolicPressure.setError("Invalid Diastolic Pressure");
+                }
+
+                // heart Rate validation
+                else if(TextUtils.isEmpty(heartRateValue)){
+                    heartRate.setError("Systolic Pressure is Required");
+                }else if(Integer.parseInt(heartRateValue)<0 || Integer.parseInt(heartRateValue)>200 ){
+                    diastolicPressure.setError("Invalid Diastolic Pressure");
+                }
+
+                else{
+                    loader.setMessage("Adding The task...");
+                    loader.setCanceledOnTouchOutside(false);
+                    loader.show();
+
+                    myAuth = FirebaseAuth.getInstance();
+                    //  onlineUserId = myAuth.getCurrentUser().getUid();
+                    onlineUserId="12345";
+                    reference= FirebaseDatabase.getInstance().getReference().child("entries").child(onlineUserId);
+                    String id=reference.push().getKey();
+                    Model data = new Model(systolicValue,diastolicValue,heartRateValue,theDate.toString(),id);
+                    reference.child(id).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(HomeActivity.this, "Entry has been added successfully", Toast.LENGTH_SHORT).show();
+                            } else {
+                                String err = task.getException().toString();
+                                Toast.makeText(HomeActivity.this, "Failed: " + err, Toast.LENGTH_SHORT).show();
+                            }
+                            loader.dismiss();
+                        }
+                    });
+                    dialog.dismiss();
+                }
             });
 
             cancel.setOnClickListener((v)->{
