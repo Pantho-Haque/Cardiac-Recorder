@@ -109,7 +109,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
 
                 else{
-                    loader.setMessage("Adding The task...");
+                    loader.setMessage("Adding The Entry ...");
                     loader.setCanceledOnTouchOutside(false);
                     loader.show();
 
