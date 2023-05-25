@@ -8,13 +8,13 @@
     android:paddingLeft="10dp"
     android:paddingTop="10dp"
     android:paddingRight="10dp"
-    android:paddingBottom="30dp">
+    android:paddingBottom="10dp">
 
     <Button
-        android:id="@+id/updateButton2"
+        android:id="@+id/deleteButton"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
         android:width="20dp"
         app:icon="@drawable/baseline_delete"
@@ -45,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:minHeight="80dp"
             android:text="Good condition"
             android:textSize="24sp" />
 
@@ -146,6 +147,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/dateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="10:45 AM 20/04/2023" />
+
+        <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -162,6 +170,7 @@
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_circle" />
+
     </LinearLayout>
 
     <Button
@@ -169,7 +178,7 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:width="20dp"
         app:icon="@drawable/baseline_pen"
         app:layout_constraintStart_toStartOf="parent"

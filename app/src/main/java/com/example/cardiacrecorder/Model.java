@@ -1,15 +1,18 @@
 package com.example.cardiacrecorder;
 
 public class Model {
-    String systolic, diastolic, heartRate, date, id;
+    String systolic, diastolic, heartRate, date,comment, id;
+
+
 
     private Model(){}
 
-    public Model(String systolic, String diastolic, String heartRate, String date, String id ) {
+    public Model(String systolic, String diastolic, String heartRate, String date,String comment, String id ) {
         this.systolic = systolic;
         this.diastolic = diastolic;
         this.heartRate = heartRate;
         this.date = date;
+        this.comment=comment;
         this.id = id;
     }
 
@@ -19,6 +22,14 @@ public class Model {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getSystolic() {

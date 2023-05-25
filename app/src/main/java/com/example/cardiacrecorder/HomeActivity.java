@@ -38,9 +38,9 @@ public class HomeActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
     private Toolbar toolbar;
+
     private RecyclerView recyclerView;
     private DatabaseReference reference;
-    private FirebaseAuth myAuth;
     private FloatingActionButton floatingActionButton;
     private ProgressDialog loader;
 
@@ -114,12 +114,12 @@ public class HomeActivity extends AppCompatActivity {
                     loader.setCanceledOnTouchOutside(false);
                     loader.show();
 
-                    myAuth = FirebaseAuth.getInstance();
+                    mAuth = FirebaseAuth.getInstance();
                     //  onlineUserId = myAuth.getCurrentUser().getUid();
                     onlineUserId="12345";
                     reference= FirebaseDatabase.getInstance().getReference().child("entries").child(onlineUserId);
                     String id=reference.push().getKey();
-                    Model data = new Model(systolicValue,diastolicValue,heartRateValue,theDate.toString(),id);
+                    Model data = new Model(systolicValue,diastolicValue,heartRateValue,theDate.toString(),"",id);
                     reference.child(id).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
