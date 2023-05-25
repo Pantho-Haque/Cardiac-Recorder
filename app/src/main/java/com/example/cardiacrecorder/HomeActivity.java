@@ -56,7 +56,52 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Cardiac Recorder");
 
-        
+        ArrayList<Model> list;
+        list = new ArrayList<>();
+        MyAdapter myAdapter=new MyAdapter(HomeActivity.this,list);
+
+        // modal
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setReverseLayout(true);
+        llm.setStackFromEnd(true);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(myAdapter);
+
+
+        // Firebase
+        mAuth = FirebaseAuth.getInstance();
+        onlineUserId="12345";
+        reference= FirebaseDatabase.getInstance().getReference().child("entries").child(onlineUserId);
+
+        // read from database
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()) {
+                    Model model=dataSnapshot.getValue(Model.class);
+                    list.add(model);
+                }
+//                class SortByHead implements Comparator<Model> {
+//                    // Used for sorting in ascending order of task head
+//                    public int compare(@NonNull Model a,@NonNull Model b)
+//                    {
+//                        return b.entries.compareTo(a.entries);
+//                    }
+//                }
+//
+//                Collections.sort(list, new SortByHead());
+                myAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w("failed", "Failed to read value.", error.toException());
+            }
+        });
 
 
         // floating action button
@@ -114,7 +159,7 @@ public class HomeActivity extends AppCompatActivity {
                     loader.setCanceledOnTouchOutside(false);
                     loader.show();
 
-                    myAuth = FirebaseAuth.getInstance();
+                    mAuth = FirebaseAuth.getInstance();
                     //  onlineUserId = myAuth.getCurrentUser().getUid();
                     onlineUserId="12345";
                     reference= FirebaseDatabase.getInstance().getReference().child("entries").child(onlineUserId);
