@@ -58,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+
         // floating action button
         floatingActionButton = findViewById(R.id.addTask);
         loader=new ProgressDialog(this);
