@@ -26,8 +26,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -116,7 +119,8 @@ public class HomeActivity extends AppCompatActivity {
 
             EditText systolicPressure = myView.findViewById(R.id.systolicPressure),
                     diastolicPressure = myView.findViewById(R.id.diastolicPressure),
-                    heartRate=myView.findViewById(R.id.heartRate);
+                    heartRate=myView.findViewById(R.id.heartRate),
+                    comment=myView.findViewById(R.id.writeComment);
 
             TextView date=myView.findViewById(R.id.dateAndTime);
 
@@ -132,6 +136,7 @@ public class HomeActivity extends AppCompatActivity {
                 String systolicValue= systolicPressure.getText().toString().trim();
                 String diastolicValue= diastolicPressure.getText().toString().trim();
                 String heartRateValue= heartRate.getText().toString().trim();
+                String commentValue=comment.getText().toString().trim();
 
                 // systolic pressure validation
                 if(TextUtils.isEmpty(systolicValue)){
@@ -164,7 +169,7 @@ public class HomeActivity extends AppCompatActivity {
                     onlineUserId="12345";
                     reference= FirebaseDatabase.getInstance().getReference().child("entries").child(onlineUserId);
                     String id=reference.push().getKey();
-                    Model data = new Model(systolicValue,diastolicValue,heartRateValue,theDate.toString(),"",id);
+                    Model data = new Model(systolicValue,diastolicValue,heartRateValue,theDate.toString(),commentValue,id);
                     reference.child(id).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
