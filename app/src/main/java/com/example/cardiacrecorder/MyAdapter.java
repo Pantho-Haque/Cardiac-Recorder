@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -164,6 +165,31 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             @Override
             public void onClick(View v) {
 
+                ProgressDialog loader=new ProgressDialog(context);
+                loader.setMessage("Deleting The Entry...");
+                loader.setCanceledOnTouchOutside(true);
+                loader.show();
+
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                //  onlineUserId = myAuth.getCurrentUser().getUid();
+                String onlineUserId="12345";
+                DatabaseReference reference= FirebaseDatabase.getInstance().getReference().child("entries").child(onlineUserId);
+
+                reference.child(onlineUserId).removeValue()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                            @Override
+                            public void onComplete(@NonNull Task <Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(context, "Task has been Deleted successfully", Toast.LENGTH_SHORT).show();
+
+                                } else {
+                                    String err = task.getException().toString();
+                                    Toast.makeText(context, "Failed: " + err, Toast.LENGTH_SHORT).show();
+                                }
+                                loader.dismiss();
+                            }
+                        });
             }
         });
 
