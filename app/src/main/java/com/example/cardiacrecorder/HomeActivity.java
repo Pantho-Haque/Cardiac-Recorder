@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Cardiac Recorder");
 
-
+        
 
 
         // floating action button
