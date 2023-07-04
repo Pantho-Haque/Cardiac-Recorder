@@ -76,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Firebase
         mAuth = FirebaseAuth.getInstance();
-        onlineUserId="12345";
+        onlineUserId= mAuth.getUid();
         reference= FirebaseDatabase.getInstance().getReference().child("entries").child(onlineUserId);
 
         // read from database
@@ -165,8 +165,7 @@ public class HomeActivity extends AppCompatActivity {
                     loader.show();
 
                     mAuth = FirebaseAuth.getInstance();
-                    //  onlineUserId = myAuth.getCurrentUser().getUid();
-                    onlineUserId="12345";
+                    onlineUserId = mAuth.getCurrentUser().getUid();
                     reference= FirebaseDatabase.getInstance().getReference().child("entries").child(onlineUserId);
                     String id=reference.push().getKey();
                     Model data = new Model(systolicValue,diastolicValue,heartRateValue,theDate.toString(),commentValue,id);

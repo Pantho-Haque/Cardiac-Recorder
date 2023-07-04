@@ -48,9 +48,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Model measure=list.get(position);
-        holder.systolicValue.setText(measure.getSystolic());
-        holder.diastolicValue.setText(measure.getDiastolic());
-        holder.heartRate.setText(measure.getHeartRate());
+        holder.systolicValue.setText(measure.getSystolic()+"mmHg");
+        holder.diastolicValue.setText(measure.getDiastolic()+"mmHg");
+        holder.heartRate.setText(measure.getHeartRate()+"bpm");
         holder.date.setText(measure.getDate());
         holder.comment.setText(measure.getComment());
 
@@ -70,13 +70,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             holder.notNormalText.setVisibility(View.VISIBLE);
             holder.redCircle.setVisibility(View.VISIBLE);
         }
-//            if(
-//                (Integer.parseInt(measure.getSystolic()) >=90 && Integer.parseInt(measure.getSystolic()) <=140) &&
-//                        (Integer.parseInt(measure.getDiastolic()) >=60 && Integer.parseInt(measure.getDiastolic()) <=90)
-//        ){
-//            holder.notNormalText.setVisibility(View.GONE);
-//            holder.redCircle.setVisibility(View.GONE);
-//        }
 
 
         holder.update.setOnClickListener(new View.OnClickListener() {
@@ -107,8 +100,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
                 FirebaseAuth myAuth = FirebaseAuth.getInstance();
-                //  onlineUserId = myAuth.getCurrentUser().getUid();
-                String onlineUserId="12345";
+                String  onlineUserId = myAuth.getCurrentUser().getUid();
                 DatabaseReference reference= FirebaseDatabase.getInstance().getReference().child("entries").child(onlineUserId);
 
                 String id=measure.getId();
@@ -171,11 +163,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 loader.show();
 
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                //  onlineUserId = myAuth.getCurrentUser().getUid();
-                String onlineUserId="12345";
+                String onlineUserId = mAuth.getCurrentUser().getUid();
                 DatabaseReference reference= FirebaseDatabase.getInstance().getReference().child("entries").child(onlineUserId);
 
-                reference.child(onlineUserId).removeValue()
+                String id=measure.getId();
+                reference.child(id).removeValue()
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
 
                             @Override

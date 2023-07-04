@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     startActivity(new Intent(MainActivity.this, HomeActivity.class));
                 } else {
-                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                   // startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
 
                 finish();
