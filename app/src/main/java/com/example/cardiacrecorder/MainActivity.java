@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (user != null) {
+                if (user != null && user.isEmailVerified()) {
                     startActivity(new Intent(MainActivity.this, HomeActivity.class));
                 } else {
 //                    startActivity(new Intent(MainActivity.this, HomeActivity.class));

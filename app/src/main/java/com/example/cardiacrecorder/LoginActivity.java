@@ -65,8 +65,12 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                                finish();
+                                if(auth.getCurrentUser().isEmailVerified()){
+                                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                    finish();
+                                }else{
+                                    Toast.makeText(LoginActivity.this, "Verify Your Email First", Toast.LENGTH_SHORT).show();
+                                }
                             }else{
                                 String err="Error: "+ task.getException().toString();
                                 Toast.makeText(LoginActivity.this, err, Toast.LENGTH_SHORT).show();
