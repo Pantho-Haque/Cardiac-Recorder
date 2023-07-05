@@ -1,7 +1,7 @@
 package com.example.cardiacrecorder;
 
 public class Model {
-    String systolic, diastolic, heartRate, date,comment, id;
+    String systolic, diastolic, heartRate, date, comment, id;
 
 
 

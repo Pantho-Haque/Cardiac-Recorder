@@ -1,34 +1,49 @@
 package com.example.cardiacrecorder;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class EntryList {
 
     private List<Model> entries = new ArrayList<>();
 
-    // add
+    // Add
     public void add(Model e) {
         if (entries.contains(e)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Entry already exists");
         }
         entries.add(e);
     }
 
-    // delete
-    public void delete(Model city){
-        if (!entries.contains(city)) {
-            throw new IllegalArgumentException();
+    // Delete
+    public void delete(Model e) {
+        if (!entries.contains(e)) {
+            throw new IllegalArgumentException("Entry does not exist");
         }
-        entries.remove(city);
+        entries.remove(e);
     }
 
-    // count
-    public int count(){
+    // Count
+    public int count() {
         return entries.size();
+    }
+
+    // Update
+    public void update(Model e) {
+        for (int i = 0; i < entries.size(); i++) {
+            Model currentModel = entries.get(i);
+            if (currentModel.getId().equals(e.getId())) {
+                entries.set(i, e);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Entry not found");
+    }
+
+    public List<Model> getEntries() {
+        List<Model> entryList = new ArrayList<>(entries);
+        //Collections.sort(entryList);
+        return entryList;
     }
 }
