@@ -1,7 +1,6 @@
 package com.example.cardiacrecorder;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class EntryList {
@@ -43,7 +42,6 @@ public class EntryList {
 
     public List<Model> getEntries() {
         List<Model> entryList = new ArrayList<>(entries);
-        //Collections.sort(entryList);
         return entryList;
     }
 }
