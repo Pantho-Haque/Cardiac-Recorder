@@ -77,6 +77,7 @@ public class HomeActivity extends AppCompatActivity {
         // Firebase
         mAuth = FirebaseAuth.getInstance();
         onlineUserId= mAuth.getUid();
+        if (onlineUserId==null) onlineUserId="1234";
         reference= FirebaseDatabase.getInstance().getReference().child("entries").child(onlineUserId);
 
         // read from database
@@ -192,6 +193,17 @@ public class HomeActivity extends AppCompatActivity {
 
             dialog.show();
         });
+
+
+        Button logoutBtn= findViewById(R.id.logoutBtn);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
     }
 
 
@@ -201,28 +213,28 @@ public class HomeActivity extends AppCompatActivity {
      *
      * @return view - the menu will appear
      */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    /**
-     *
-     * @param item -The menu item that was selected.
-     *
-     *      the functionality if an item is selected
-     *
-     * @return callback that denotes an item is selected
-     */
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.logout) {
-            mAuth.signOut();
-            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu,menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    /**
+//     *
+//     * @param item -The menu item that was selected.
+//     *
+//     *      the functionality if an item is selected
+//     *
+//     * @return callback that denotes an item is selected
+//     */
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if (item.getItemId() == R.id.logout) {
+//            mAuth.signOut();
+//            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+//            finish();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }

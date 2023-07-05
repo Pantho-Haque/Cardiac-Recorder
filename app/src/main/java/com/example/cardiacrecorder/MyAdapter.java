@@ -173,7 +173,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                             @Override
                             public void onComplete(@NonNull Task <Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(context, "Task has been Deleted successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Entry has been Deleted successfully", Toast.LENGTH_SHORT).show();
 
                                 } else {
                                     String err = task.getException().toString();
