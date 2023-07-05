@@ -1,8 +1,8 @@
 package com.example.cardiacrecorder;
 
-public class Model {
+public class Model implements Comparable<Model>{
     String systolic, diastolic, heartRate, date, comment, id;
-
+    private Model e;
 
 
     private Model(){}
@@ -62,6 +62,11 @@ public class Model {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public int compareTo(Model e) {
+        return this.getId().compareTo(e.getId());
     }
 
 }
